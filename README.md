@@ -13,7 +13,7 @@ We had a great idea of business: we should do the same thing than bit.ly! And he
 
 # Fixtures
 
-    docker-compose exec db  mysql -uroot -pnotsecret symfony-job-interview -e "INSERT INTO uri VALUES (NULL, 'https://www.youtube.com/watch?v=oavMtUWDBTM', 'some_token', 0);"
+    docker-compose exec db  mysql -uroot -pnotsecret symfony-job-interview -e "INSERT INTO uri VALUES (NULL, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'some_token', 0);"
 
 # How to test
 
