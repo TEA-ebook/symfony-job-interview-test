@@ -1,0 +1,49 @@
+version: '2'
+
+networks:
+  back:
+    driver: bridge
+
+volumes:
+  db: ~
+
+services:
+  proxy:
+    image: nginx:1.14
+    volumes:
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./config/nginx/sites:/etc/nginx/sites:ro
+      - ./config/nginx/ssl:/etc/nginx/ssl:ro
+      - ./:/var/www/project:ro
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - back
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    working_dir: /var/www/project
+    environment:
+      DATABASE_URL: mysql://michaelbay:explosionseverywhere@db:3306/symfony-job-interview
+    volumes:
+      - ./:/var/www/project:rw
+    networks:
+      - back
+    depends_on:
+      - proxy
+      - db
+
+  db:
+    image: mariadb:10.1
+    environment:
+      MYSQL_ROOT_PASSWORD: notsecret
+      MYSQL_USER: michaelbay
+      MYSQL_PASSWORD: explosionseverywhere
+      MYSQL_DATABASE: symfony-job-interview
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - back
