@@ -5,7 +5,7 @@ use Doctrine\DBAL\Driver\Connection;
 
 class RedirectController
 {
-    public function index()
+    public function index(Connection $connection)
     {
         $token = $_GET['token'];
 
