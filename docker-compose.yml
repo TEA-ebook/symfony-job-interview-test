@@ -26,6 +26,8 @@ services:
       context: ./
       dockerfile: Dockerfile.dev
     working_dir: /var/www/project
+    environment:
+      DATABASE_URL: mysql://michaelbay:explosionseverywhere@db:3306/symfony-job-interview
     volumes:
       - ./:/var/www/project:rw
     networks:
@@ -38,8 +40,9 @@ services:
     image: mariadb:10.1
     environment:
       MYSQL_ROOT_PASSWORD: notsecret
-      MYSQL_USER: project
-      MYSQL_PASSWORD: password
+      MYSQL_USER: michaelbay
+      MYSQL_PASSWORD: explosionseverywhere
+      MYSQL_DATABASE: symfony-job-interview
     volumes:
       - db:/var/lib/mysql
     networks:
